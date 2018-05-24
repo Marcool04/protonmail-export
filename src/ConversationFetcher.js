@@ -9,11 +9,11 @@ export default class ConversationsFetcher {
     _logger: (msg: string) => any;
     _counts: any | null;
     static BASE_URL: string = 'https://mail.protonmail.com/api';
-    constructor(cookie: any, sessionId: string, privateKey: string, logger: (msg: string) => any) {
+    constructor(cookie: any, appVersion: string, sessionId: string, privateKey: string, logger: (msg: string) => any) {
         this._headers = {
             cookie,
             'x-pm-apiversion': '1',
-            'x-pm-appversion': 'Web_3.11.7',
+            'x-pm-appversion': appVersion,
             'x-pm-session': sessionId
         }
         this._privateKey = privateKey;

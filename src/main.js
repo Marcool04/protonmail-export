@@ -27,13 +27,14 @@ async function decryptPrivateKey(privateKey: openpgp.key): Promise<void> {
 }
 
 async function getParams():
-        Promise<{ cookie: string, sessionId: string, privateKey: openpgp.Key, outputDirectory: string }> {
+        Promise<{ cookie: string, appVersion: string, sessionId: string, privateKey: openpgp.Key, outputDirectory: string }> {
 
     let outputDirectory = '';
     program
         .description('Export your ProtonMail e-mails.')
         .usage('[options] <existing_output_directory>')
         .option('-c, --cookie <string>', 'specify the cookie header to send to the API (required)')
+        .option('-a, --appversion <string>', 'specify the appversion header to send to the API (required)')
         .option('-i, --session-id <string>', 'specify a valid session ID (required)')
         .option('-p, --private-key-file <path>', 'specify the path to a text file containing the private key (required)')
         .action(_outputDirectory => outputDirectory = _outputDirectory)
@@ -49,6 +50,10 @@ async function getParams():
 
     if (!program.cookie) {
         errors.push('Cookie parameter is required.');
+    }
+
+    if (!program.appVersion) {
+        errors.push('App version parameter is required.');
     }
 
     if (!program.sessionId) {
@@ -71,13 +76,13 @@ async function getParams():
 
     await decryptPrivateKey(privateKey);
 
-    return { cookie: program.cookie, sessionId: program.sessionId, privateKey, outputDirectory };
+    return { cookie: program.cookie, appVersion: program.appVersion, sessionId: program.sessionId, privateKey, outputDirectory };
 }
 
 async function main(): Promise<void> {
-    const { cookie, sessionId, privateKey, outputDirectory } = await getParams();
+    const { cookie, appVersion, sessionId, privateKey, outputDirectory } = await getParams();
     const logger = (msg: string) => console.log(msg);
-    const conversationFetcher = new ConversationsFetcher(cookie, sessionId, privateKey, logger);
+    const conversationFetcher = new ConversationsFetcher(cookie, appVersion, sessionId, privateKey, logger);
     const exporter = new Exporter(conversationFetcher, logger);
     return await exporter.exportEmails(outputDirectory);
 }
