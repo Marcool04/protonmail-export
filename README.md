@@ -59,18 +59,18 @@ _Note: these instructions are for Chrome/Chromium browser, but this shouldn't be
 
 1. First open a new session with your ProtonMail's account, and make sure your browser development tools are open. If they weren't open on page load, just open them and reload the page.
 2. In the *Network* tab of the development tools, locate the call to */api/users* URL, and more specifically the *Request Headers* section to this call.
-3. Copy-paste somewhere the value of these two headers: *Cookie* (begins with ”AUTH-”) and *x-pm-session* (32 alphanumeric characters).
+3. Copy-paste somewhere the value of these three headers: *Cookie* (begins with ”AUTH-”), *x-pm-appversion* (begins with ”Web_”) and *x-pm-session* (32 alphanumeric characters).
 
 Once you have all this elements, you can finally export your mails by running the command:
 
 ```shell
-protonmail-export -i "<session_id>" -c "<cookie>" -p <path_to_private_key_file> <output_directory>
+protonmail-export -a "<app_version>" -i "<session_id>" -c "<cookie>" -p <path_to_private_key_file> <output_directory>
 ```
 
 For instance this might look like this: *(note that the output directory must already exist)*
 
 ```shell
-protonmail-export -i "95bc88ea1e94e25357e12a433e9b5ee5" -c "AUTH-95bc88(...); NOTICE-ae3cce(...)=true" -p ~/private-key.txt ~/protonmail-messages
+protonmail-export -a "Web_3.13.7" -i "95bc88ea1e94e25357e12a433e9b5ee5" -c "AUTH-95bc88(...); NOTICE-ae3cce(...)=true" -p ~/private-key.txt ~/protonmail-messages
 ```
 
 You'll be asked for your passphrase to decrypt your private key. Then you'll get in the output directory one file for each of your emails. It's possible with most of mail clients to read and import these file to an existing mailbox.
