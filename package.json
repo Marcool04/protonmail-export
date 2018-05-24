@@ -10,18 +10,23 @@
     "type": "git",
     "url": "git+https://github.com/scastiel/protonmail-export.git"
   },
-  "keywords": ["protonmail", "mail", "export", "openpgp"],
+  "keywords": [
+    "protonmail",
+    "mail",
+    "export",
+    "openpgp"
+  ],
   "author": "Sébastien Castiel <sebastien@castiel.me>",
   "license": "GPL-3.0",
   "dependencies": {
     "babel-core": "^6.18.2",
-    "commander": "^2.9.0",
+    "babel-polyfill": "^6.26.0",
+    "commander": "^2.15.1",
     "fs-promise": "^0.5.0",
     "node-fetch": "^1.6.3",
     "openpgp": "^2.3.5",
     "password-prompt": "^1.0.2",
-    "request": "^2.78.0",
-    "babel-polyfill": "^6.16.0"
+    "request": "^2.78.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

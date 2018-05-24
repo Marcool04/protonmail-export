@@ -34,7 +34,7 @@ async function getParams():
         .description('Export your ProtonMail e-mails.')
         .usage('[options] <existing_output_directory>')
         .option('-c, --cookie <string>', 'specify the cookie header to send to the API (required)')
-        .option('-a, --appversion <string>', 'specify the appversion header to send to the API (required)')
+        .option('-a, --app-version <string>', 'specify the appversion header to send to the API (required)')
         .option('-i, --session-id <string>', 'specify a valid session ID (required)')
         .option('-p, --private-key-file <path>', 'specify the path to a text file containing the private key (required)')
         .action(_outputDirectory => outputDirectory = _outputDirectory)
@@ -53,7 +53,7 @@ async function getParams():
     }
 
     if (!program.appVersion) {
-        errors.push('App version parameter is required.');
+        errors.push('App version parameter is required, we have: ' + program.appVersion);
     }
 
     if (!program.sessionId) {
