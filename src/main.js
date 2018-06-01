@@ -53,7 +53,7 @@ async function getParams():
     }
 
     if (!program.appVersion) {
-        errors.push('App version parameter is required, we have: ' + program.appVersion);
+        errors.push('App version parameter is required.');
     }
 
     if (!program.sessionId) {
